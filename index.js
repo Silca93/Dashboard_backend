@@ -16,6 +16,10 @@ if (process.env.NODE_ENV !== 'production') {
   // 'https://whataveritwillbe.onrender.com'
 
   }));
+} else {
+  app.use(cors({
+    origin:'https://dashboard-backend-iafx.onrender.com'
+  }))
 }
 // Initialize Finnhub API Client
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
