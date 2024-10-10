@@ -11,10 +11,7 @@ if (process.env.NODE_ENV !== 'production') {
       origin: 
      //? Your frontend URL in development  
       'http://localhost:5173'
-
     //!Your frontend URL in production. Should point to the deployment frontend URL//
-  // 'https://whataveritwillbe.onrender.com'
-
   }));
 } else {
   app.use(cors({
