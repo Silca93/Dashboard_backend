@@ -15,7 +15,7 @@ if (process.env.NODE_ENV !== 'production') {
   }));
 } else {
   app.use(cors({
-    origin:'https://dashboard-backend-iafx.onrender.com'
+    origin:'https://dashboard-frontend-ebld.onrender.com'
   }))
 }
 // Initialize Finnhub API Client
