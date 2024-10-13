@@ -13,11 +13,14 @@ if (process.env.NODE_ENV !== 'production') {
       'http://localhost:5173'
     //!Your frontend URL in production. Should point to the deployment frontend URL//
   }));
-} else {
+}
+ else {
   app.use(cors({
     origin:'https://dashboard-frontend-ebld.onrender.com'
   }))
 }
+
+
 // Initialize Finnhub API Client
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = process.env.API_KEY;
@@ -97,18 +100,27 @@ app.get('/api/test', (req, res) => {
 
 app.get('/api/news', async (req, res) => {
   try {
+    const { category } = req.query;
+
+
+    const params = {
+      country: 'us', // default country
+      apiKey: process.env.VITE_API_URL_NEWS, // your News API key
+    };
+
+    // Add category to params if it exists
+    if (category) {
+      params.category = category;
+    }
+    
     console.log('Received request for news'); // Debug log
     console.log('Using News API key:', process.env.VITE_API_URL_NEWS); // Debug log
 
-    const response = await axios.get('https://newsapi.org/v2/top-headlines', {
-      params: {
-        country: 'us',
-        apiKey: process.env.VITE_API_URL_NEWS
-      }
-    });
-    
+    const response = await axios.get('https://newsapi.org/v2/top-headlines', { params });
+
     console.log('Successfully fetched news data'); // Debug log
     res.json(response.data);
+
   } catch (error) {
     console.error('Error fetching news:', error.response?.data || error.message);
     res.status(500).json({ 
